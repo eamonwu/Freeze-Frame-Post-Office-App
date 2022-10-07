@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freeze_frame_post_office_app/routes/route.dart';
+import 'package:freeze_frame_post_office_app/view/home_screen.dart';
 import 'package:freeze_frame_post_office_app/view/login_screen.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          home: LoginScreen(),
+          home: HomeScreen(),
           debugShowCheckedModeBanner: false,
           getPages: Routes,
         );
