@@ -171,11 +171,11 @@ class HomeScreen extends StatelessWidget {
                         width: 37.w,
                         height: 46.73.h,
                       ),
-                      Image.asset(
-                        stamp["stampUrl"],
-                        width: 25.w,
-                        height: 35.h,
-                      ),
+                      // Image.asset(
+                      //   stamp["stampUrl"],
+                      //   width: 25.w,
+                      //   height: 35.h,
+                      // ),
                       Container(
                         width: 25.w,
                         height: 35.h,

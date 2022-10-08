@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freeze_frame_post_office_app/controller/login_screen_controller.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Get.put(LoginScreenController());
     return Container(
       color: const Color(0xffD7DDFF),
       child: SafeArea(
@@ -29,6 +32,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _loginForm() {
+    final _loginCtrl = Get.find<LoginScreenController>();
     return SizedBox(
       width: 340.w,
       height: 290.h,
@@ -42,7 +46,7 @@ class LoginScreen extends StatelessWidget {
               child: const Text(
                 "登录",
                 style: TextStyle(
-                  color: const Color(0xffA4D2E5),
+                  color: Color(0xffA4D2E5),
                   fontSize: 30,
                 ),
               ),
@@ -50,19 +54,30 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               width: 292.w,
               height: 41.h,
-              child: TextField(),
+              child: _loginTextFieldAccount(_loginCtrl.account),
             ),
             SizedBox(
               width: 292.w,
               height: 41.h,
-              child: TextField(),
+              child: _loginTextFieldPassword(_loginCtrl.pwd),
             ),
-            Container(
-              width: 292.w,
-              height: 57.h,
-              decoration: BoxDecoration(
-                  color: const Color(0xffA4D2E5),
-                  borderRadius: BorderRadius.circular(5.h)),
+            InkWell(
+              onTap: () => _loginCtrl.login(),
+              child: Container(
+                width: 292.w,
+                height: 57.h,
+                decoration: BoxDecoration(
+                    color: const Color(0xffA4D2E5),
+                    borderRadius: BorderRadius.circular(5.h)),
+                child: Center(
+                    child: Text(
+                  "进入",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.sp,
+                      color: Colors.white),
+                )),
+              ),
             ),
             Container(
               width: 292.w,
@@ -71,7 +86,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text("注册账号"),
                     Text("找回密码"),
                   ]),
@@ -94,5 +109,66 @@ class LoginScreen extends StatelessWidget {
       width: 323.w,
       height: 185.h,
     );
+  }
+
+  Widget _loginTextFieldAccount(TextEditingController account) {
+    return Container(
+        height: 41,
+        width: 292,
+        decoration: BoxDecoration(
+            border: Border.all(
+                width: 1, color: const Color.fromARGB(0, 172, 184, 194))),
+        child: Stack(alignment: Alignment.center, children: [
+          Positioned(
+            child: TextField(
+              controller: account,
+              style: const TextStyle(fontSize: 15, color: Colors.black87),
+              decoration: const InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
+                isCollapsed: true,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                hintText: "账号",
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+              ),
+            ),
+          ),
+          const Positioned(
+            child: Image(image: AssetImage("assets/images/login_account.png")),
+            right: 11.5,
+          )
+        ]));
+  }
+
+  Widget _loginTextFieldPassword(TextEditingController pwd) {
+    return Container(
+        height: 41,
+        width: 292,
+        decoration: BoxDecoration(
+            border: Border.all(
+                width: 1, color: const Color.fromARGB(0, 172, 184, 194))),
+        child: Stack(alignment: Alignment.center, children: [
+          Positioned(
+              child: TextField(
+            controller: pwd,
+            style: const TextStyle(fontSize: 15, color: Colors.black87),
+            decoration: const InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
+                isCollapsed: true,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                hintText: "密码",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                )),
+          )),
+          const Positioned(
+            child: Image(image: AssetImage("assets/images/login_pwd.png")),
+            right: 11.5,
+          )
+        ]));
   }
 }
